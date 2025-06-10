@@ -1,19 +1,39 @@
 const fs = require('fs')
 const path = require('path')
 const express = require('express')
-const { json } = require('body-parser')
 const app = express()
+
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 const PORT = 3000
 
 const tarefasPath = path.join(__dirname, "tarefas-escola.json")
 const tarefasData = fs.readFileSync(tarefasPath, 'utf-8')
-const tarefas = json.parse(tarefasData)
+const tarefas = JSON.parse(tarefasData)
 
-const indexHtml = fs.readFileSync(path.join(__dirname, "/html/index.html"))
+const indexHtml = path.join(__dirname, "/html/index.html")
 
 function salvarDados() {
     fs.writeFileSync(tarefasData, JSON.stringify(tarefas, null, 2))
+
+    tarefas.forEach(tarefa, index=>{
+        
+        tarefaTable +=`
+        <tr>
+            <td>${tarefa.nomeTarefa}</td>
+            <td>${tarefa.descricaoTarefa}</td>
+            <td>${tarefa.disciplinaTarefa}</td>
+            <td>${index}</td> //input e nele vai ter o nome da tarefa de id para conseguir excluir dps mais facil
+        </tr>
+        `;
+    
+        const indexData = fs.readFileSync(indexHtml, 'utf-8');
+        const html = indexData.replace('{{tarefaTable}}', tarefaTable);
+        res.send(html);
+    })
+
+
 }
 
 app.get("/", (req, res) => {
@@ -32,8 +52,6 @@ app.post("/adicionar-tarefa", (req, res) => {
 
     tarefas.push(novaTarefa)
     salvarDados()
-
-    res.sendFile(indexHtml)
 
 })
 
@@ -56,12 +74,33 @@ app.post("/acoes", (req, res) => {
     else if (alterar) {
         const alterarHtml = fs.readFileSync(path.join(__dirname, "/html/alterar.html"))
 
-        alterarHtml.nome.value(tarefas[tarefaIndex].nomeTarefa)
-        alterarHtml.desc.value(tarefas[tarefaIndex].descricaoTarefa)
-        alterarHtml.disciplina.value(tarefas[tarefaIndex].disciplinaTarefa)
+        alterarHtml.nomeTarefa.value(tarefas[tarefaIndex].nomeTarefa)
+        alterarHtml.novaDescricaoTarefa.value(tarefas[tarefaIndex].descricaoTarefa)
+        alterarHtml.novaDisciplinaTarefa.value(tarefas[tarefaIndex].disciplinaTarefa)
 
         res.send(alterarHtml)
-
-
     }
+})
+
+app.post("/alterar", (req, res)=>{
+    const {nomeTarefa, novaDescricaoTarefa, novaDisciplinaTarefa} = req.body
+
+    const tarefaIndex = tarefas.findIndex(tarefa => tarefa.nomeTarefa.toLowerCase() === nomeTarefa.toLowerCase());
+
+    if(tarefaIndex === -1){
+        posPesquisa(res, "Carros não encontrados")
+        return
+    }
+
+    tarefas[tarefaIndex].descricaoTarefa = novaDescricaoTarefa
+    tarefas[tarefaIndex].disciplinaTarefa = novaDisciplinaTarefa
+
+    salvarDados();
+
+})
+
+
+
+app.listen(PORT, () =>{
+    console.log(`Servidor hosteando no http://localhost:${PORT}/`);
 })
