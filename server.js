@@ -49,15 +49,50 @@ function gerarTabelaTarefas() {
   return tarefaTable;
 }
 
-function truncarDescricao(desc, comprimentoMax){
-  if(desc.length > comprimentoMax){
-      return desc.slice(0, comprimentoMax) + "...";
+function truncarDescricao(desc, comprimentoMax) {
+  if (desc.length > comprimentoMax) {
+    return desc.slice(0, comprimentoMax) + "...";
   }
   return desc;
 }
 
 function buscarTarefaPorNome(nomeTarefa) {
   return tarefas.find(tarefa => tarefa.nome.toLowerCase() === nomeTarefa.toLowerCase())
+}
+
+function buscarTarefaPorCategoria(categoria) {
+  let tarefaTable = "";
+
+  tarefas.forEach((tarefa, indexReal) => { 
+    if (tarefa.disciplinaTarefa.toLowerCase() === categoria.toLowerCase()) {
+
+      let descricaoTruncada = truncarDescricao(tarefa.descricaoTarefa, 200);
+
+      tarefaTable += `
+        <tr>
+          <td><a href="/mostrar-tarefa/${tarefa.nomeTarefa}">${tarefa.nomeTarefa}</a></td>
+          <td>${descricaoTruncada}</td>
+          <td>${tarefa.disciplinaTarefa}</td>
+          <td>
+            <form action="/remover" method="GET" style="display:inline;">
+              <input type="hidden" name="index" value="${indexReal}"> 
+              <button type="submit">Remover</button>
+            </form>
+            <form action="/atualizar" method="GET" style="display:inline;">
+              <input type="hidden" name="index" value="${indexReal}"> 
+              <button type="submit">Atualizar</button>
+            </form>
+          </td>
+        </tr>
+      `;
+    }
+  });
+
+  if (tarefaTable === "") {
+    return `<tr><td colspan="4">Nenhuma tarefa encontrada para a categoria "${categoria}"</td></tr>`;
+  }
+
+  return tarefaTable
 }
 
 app.get("/", (req, res) => {
@@ -67,12 +102,12 @@ app.get("/", (req, res) => {
   res.send(html);
 });
 
-app.get("/mostrar-tarefa/:nome", (req, res) =>{
-  const nome = req.params.nome 
+app.get("/mostrar-tarefa/:nome", (req, res) => {
+  const nome = req.params.nome
 
   let tarefaEncontrada = buscarTarefaPorNome(nome)
 
-  if(tarefaEncontrada){
+  if (tarefaEncontrada) {
     const tarefaEncontradaPath = path.join(__dirname, "/html/tarefa.html")
     const tarefaEncontradaData = fs.readFileSync(tarefaEncontradaPath, "utf-8")
     const htmlTarefaEncontrada = tarefaEncontradaData.replace(
@@ -83,8 +118,8 @@ app.get("/mostrar-tarefa/:nome", (req, res) =>{
     )
     res.send(htmlTarefaEncontrada)
   }
-  else{
-    alert("Não foi possivel acessar")
+  else {
+    console.log("Não foi possivel acessar")
   }
 })
 
@@ -96,7 +131,7 @@ app.post("/adicionar-tarefa", (req, res) => {
       (tarefa) => tarefa.nomeTarefa.toLowerCase() === nomeTarefa.toLowerCase
     )
   ) {
-    alert("Não foi possivel adicionar essa nova tarefa");
+    console.log("Não foi possivel adicionar essa nova tarefa");
   }
 
   novaTarefa = {
@@ -115,23 +150,23 @@ app.get("/remover", (req, res) => {
   const index = parseInt(req.query.index);
 
   if (index < 0) {
-    alert("Tarefa não pode ser deletada");
+    console.log("Tarefa não pode ser deletada");
   } else {
-    tarefas.splice(tarefaIndex, 1);
+    tarefas.splice(index, 1);
     salvarDados();
   }
   res.redirect("/");
 });
 
-app.post("/remover", (req, res) =>{
+app.post("/remover", (req, res) => {
   const nomeTarefaRemover = req.body
 
   const tarefaIndex = tarefas.findIndex(tarefa => tarefa.nome.toLowerCase() === nomeTarefaRemover.toLowerCase())
 
-  if(tarefaIndex < 0 ){
-    alert("Não foi possivel achar a tarefa")
+  if (tarefaIndex < 0) {
+    console.log("Não foi possivel achar a tarefa")
   }
-  else{
+  else {
     tarefas.splice(tarefaIndex, 1);
     salvarDados();
   }
@@ -144,7 +179,7 @@ app.get("/atualizar", (req, res) => {
   const index = parseInt(req.query.index);
 
   if (index < 0) {
-    alert("Não foi possivel fazer isso");
+    console.log("Não foi possivel fazer isso");
     return
   }
 
@@ -171,7 +206,7 @@ app.post("/atualizar", (req, res) => {
   );
 
   if (tarefaIndex < 0) {
-    alert("tarefa não encontradas");
+    console.log("tarefa não encontradas");
   }
 
   tarefas[tarefaIndex].descricaoTarefa = novaDescricaoTarefa;
@@ -181,6 +216,24 @@ app.post("/atualizar", (req, res) => {
 
   res.redirect("/");
 });
+
+app.post("/filtrar", (req, res) => {
+  const escolha = req.body.escolha
+
+  if(escolha === "Todas"){
+    const indexData = fs.readFileSync(indexHtml, "utf-8");
+    const tabela = gerarTabelaTarefas();
+    const html = indexData.replace("{{tarefaTable}}", tabela);
+    res.send(html);
+    return
+  }
+
+  const tabela = buscarTarefaPorCategoria(escolha)
+  const html = fs.readFileSync(indexHtml, 'utf-8')
+    .replace('{{tarefaTable}}', tabela);
+  res.send(html);
+
+})
 
 app.listen(PORT, () => {
   console.log(`Servidor hosteando no http://localhost:${PORT}/`);
