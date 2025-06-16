@@ -1,7 +1,67 @@
 [
-    {
-        "nomeTarefa": "ex1",
-        "descricaoTarefa": "ex1",
-        "disciplinaTarefa": "ex1"
-    }
+  {
+    "nomeTarefa": "Estudar JavaScript",
+    "descricaoTarefa": "Revisar funções de array e callbacks.",
+    "disciplinaTarefa": "Programação"
+  },
+  {
+    "nomeTarefa": "Fazer relatório de química",
+    "descricaoTarefa": "Escrever sobre reações ácido-base para a aula de amanhã.",
+    "disciplinaTarefa": "Química"
+  },
+  {
+    "nomeTarefa": "Ler capítulo de história",
+    "descricaoTarefa": "Ler o capítulo sobre Revolução Francesa.",
+    "disciplinaTarefa": "História"
+  },
+  {
+    "nomeTarefa": "Exercícios de Matemática",
+    "descricaoTarefa": "Resolver os exercícios de funções do segundo grau.",
+    "disciplinaTarefa": "Matemática"
+  },
+  {
+    "nomeTarefa": "Produção de Texto",
+    "descricaoTarefa": "Escrever uma redação dissertativa sobre meio ambiente.",
+    "disciplinaTarefa": "Português"
+  },
+  {
+    "nomeTarefa": "Lista de Logaritmos",
+    "descricaoTarefa": "Resolver os exercícios da página 45 sobre logaritmos.",
+    "disciplinaTarefa": "Matemática"
+  },
+  {
+    "nomeTarefa": "Experimento de Solo",
+    "descricaoTarefa": "Montar o relatório sobre o experimento de tipos de solo.",
+    "disciplinaTarefa": "Ciências"
+  },
+  {
+    "nomeTarefa": "Revisar Segunda Guerra Mundial",
+    "descricaoTarefa": "Ler os principais tópicos sobre a Segunda Guerra para a prova.",
+    "disciplinaTarefa": "História"
+  },
+  {
+    "nomeTarefa": "Estados Brasileiros",
+    "descricaoTarefa": "Estudar as regiões e estados do Brasil para a avaliação.",
+    "disciplinaTarefa": "Geografia"
+  },
+  {
+    "nomeTarefa": "Vocabulário de Viagem",
+    "descricaoTarefa": "Estudar as palavras de vocabulário para aeroporto e viagem.",
+    "disciplinaTarefa": "Inglês"
+  },
+  {
+    "nomeTarefa": "Projeto de Artes",
+    "descricaoTarefa": "Fazer uma pintura abstrata para o projeto final.",
+    "disciplinaTarefa": "Artes"
+  },
+  {
+    "nomeTarefa": "Pesquisa sobre Política",
+    "descricaoTarefa": "Fazer uma pesquisa sobre o sistema eleitoral brasileiro.",
+    "disciplinaTarefa": "Sociologia"
+  },
+  {
+    "nomeTarefa": "Aula de Educação Física",
+    "descricaoTarefa": "Preparar uma apresentação sobre os benefícios da corrida.",
+    "disciplinaTarefa": "Educação Física"
+  }
 ]

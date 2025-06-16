@@ -1,21 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SchoolPilot</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
     />
-  </head>
-  <body></body>
+    <style>
+      /* Garante altura total para a sidebar */
+      .sidebar {
+        min-height: 100vh;
+      }
+      .text-danger {
+        font-size: 2rem;
+      }
+      a .btn {
+        border-radius: 0;
+        height: 70px;
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
 
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"
-  ></script>
+      @media (max-width: 767.98px) {
+        .sidebar {
+          min-height: auto;
+        }
+        nav {
+          gap: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row flex-md-nowrap">
+        <!-- Sidebar vertical no desktop, horizontal no mobile -->
+        <nav
+          class="col-12 col-md-2 bg-light sidebar d-flex flex-md-column flex-row align-items-center py-3 px-0"
+        >
+          <div class="mb-md-4 fw-bold text-danger">SchoolPilot</div>
+
+          <div class="d-none d-md-flex flex-column w-100">
+            <a href="/" class="w-100">
+              <button class="btn btn-secondary w-100 w-md-20">Home</button>
+            </a>
+            <a href="/adicionar" class="w-100">
+              <button class="btn btn-success w-100 w-md-20">Adicionar</button>
+            </a>
+            <a href="/atualizar-page" class="w-100">
+              <button class="btn btn-info text-white w-100">Atualizar</button>
+            </a>
+            <a href="/remover-page" class="w-100">
+              <button class="btn btn-danger w-100">Remover</button>
+            </a>
+          </div>
+          <div class="dropdown d-md-none">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              ☰ Menu
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item text-success" href="/">Home</a>
+                <a class="dropdown-item text-success" href="/adicionar"
+                  >Adicionar</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item text-info" href="/atualizar-page"
+                  >Atualizar</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item text-danger" href="/remover-page"
+                  >Remover</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Conteúdo principal -->
+        <main class="col-12 col-md-10 p-4">
+          <h2 class="text-danger">Atualizar Tarefa</h2>
+
+          <form class="mb-3" action="/atualizar" method="post">
+            <label for="nomeTarefa" class="form-label">Nome tarefa</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nomeTarefa"
+              name="nomeTarefa"
+              value=""
+            /><br />
+            <label for="novaDescricaoTarefa" class="form-label"
+              >Descrição tarefa</label
+            >
+            <textarea
+              type="text"
+              class="form-control"
+              id="novaDescricaoTarefa"
+              name="novaDescricaoTarefa"
+              rows="3"
+            ></textarea
+            ><br />
+            <label for="novaDisciplinaTarefa" class="form-label"
+              >Disciplina tarefa</label
+            ><br />
+            <select
+              class="form-select w-auto d-inline"
+              id="novaDisciplinaTarefa"
+              name="novaDisciplinaTarefa"
+            >
+              <option value="Português">Português</option>
+              <option value="Matemática">Matemática</option>
+              <option value="Ciências">Ciências</option>
+              <option value="História">História</option>
+              <option value="Geografia">Geografia</option>
+              <option value="Inglês">Inglês</option>
+              <option value="Outros">Outros</option></select
+            ><br /><br />
+            <input
+              type="text"
+              placeholder="Se outros, escreva aqui o nome da tarefa!"
+              id="disciplinaTarefaEscrita"
+              name="disciplinaTarefaEscrita"
+              class="form-control"
+            /><br />
+            <button type="submit" class="btn btn-info text-white btn-lg">
+              Atualizar
+            </button>
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
