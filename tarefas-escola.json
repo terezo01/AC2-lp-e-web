@@ -1,15 +1,5 @@
 [
   {
-    "nomeTarefa": "Estudar JavaScript",
-    "descricaoTarefa": "Revisar funções de array e callbacks.",
-    "disciplinaTarefa": "Programação"
-  },
-  {
-    "nomeTarefa": "Fazer relatório de química",
-    "descricaoTarefa": "Escrever sobre reações ácido-base para a aula de amanhã.",
-    "disciplinaTarefa": "Química"
-  },
-  {
     "nomeTarefa": "Ler capítulo de história",
     "descricaoTarefa": "Ler o capítulo sobre Revolução Francesa.",
     "disciplinaTarefa": "História"

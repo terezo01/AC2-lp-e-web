@@ -282,7 +282,7 @@ app.get("/atualizar", (req, res) => {
 
   atualizarHtml = atualizarHtml.replace(
     'value=""',
-    `value=${tarefa.nomeTarefa}`
+    `value="${tarefas[index].nomeTarefa}"`
   );
 
   res.send(atualizarHtml);
@@ -301,23 +301,22 @@ app.post("/atualizar", (req, res) => {
   } = req.body;
 
   const tarefaIndex = tarefas.findIndex(
-    (tarefa) => tarefa.nomeTarefa.toLowerCase() === nomeTarefa.toLowerCase()
+    tarefa => tarefa.nomeTarefa.toLowerCase() === nomeTarefa.toLowerCase()
   );
 
   if (tarefaIndex < 0) {
     console.log("tarefa não encontradas");
   }
+  
+  tarefas[tarefaIndex].descricaoTarefa = novaDescricaoTarefa;
 
   if (novaDisciplinaTarefa === "Outros") {
     if (disciplinaTarefaEscrita) {
-      tarefas[tarefaIndex].descricaoTarefa = novaDescricaoTarefa;
       tarefas[tarefaIndex].disciplinaTarefa = disciplinaTarefaEscrita;
     } else {
-      tarefas[tarefaIndex].descricaoTarefa = novaDescricaoTarefa;
       tarefas[tarefaIndex].disciplinaTarefa = "Outros";
     }
-  } else {
-    tarefas[tarefaIndex].descricaoTarefa = novaDescricaoTarefa;
+  } else if (novaDisciplinaTarefa !== "Outros") {
     tarefas[tarefaIndex].disciplinaTarefa = novaDisciplinaTarefa;
   }
 
