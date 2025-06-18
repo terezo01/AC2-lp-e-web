@@ -43,15 +43,5 @@
     "nomeTarefa": "Projeto de Artes",
     "descricaoTarefa": "Fazer uma pintura abstrata para o projeto final.",
     "disciplinaTarefa": "Artes"
-  },
-  {
-    "nomeTarefa": "Pesquisa sobre Política",
-    "descricaoTarefa": "Fazer uma pesquisa sobre o sistema eleitoral brasileiro.",
-    "disciplinaTarefa": "Sociologia"
-  },
-  {
-    "nomeTarefa": "Aula de Educação Física",
-    "descricaoTarefa": "Preparar uma apresentação sobre os benefícios da corrida.",
-    "disciplinaTarefa": "Educação Física"
   }
 ]

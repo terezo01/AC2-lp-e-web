@@ -27,8 +27,8 @@ function gerarTabelaTarefas() {
     let descricaoTruncada = truncarDescricao(tarefa.descricaoTarefa, 200);
 
     tarefaTable += `
-      <tr>
-        <td><a href="/mostrar-tarefa/${tarefa.nomeTarefa}">${tarefa.nomeTarefa}</a></td>
+      <tr onclick="window.location.href='/mostrar-tarefa/${tarefa.nomeTarefa}';">
+        <td>${tarefa.nomeTarefa}</td>
         <td>${descricaoTruncada}</td>
         <td>${tarefa.disciplinaTarefa}</td>
         <td>
@@ -42,6 +42,7 @@ function gerarTabelaTarefas() {
             <button type="submit" class="btn btn-sm btn-outline-secondary">Atualizar</button>
           </form>
         </td>
+
       </tr>
     `;
   });
@@ -73,8 +74,8 @@ function buscarTarefaPorCategoria(categoria) {
       let descricaoTruncada = truncarDescricao(tarefa.descricaoTarefa, 200);
 
       tarefaTable += `
-        <tr>
-          <td><a href="/mostrar-tarefa/${tarefa.nomeTarefa}">${tarefa.nomeTarefa}</a></td>
+        <tr  onclick="window.location.href='/mostrar-tarefa/${tarefa.nomeTarefa}';">
+          <td>${tarefa.nomeTarefa}</td>
           <td>${descricaoTruncada}</td>
           <td>${tarefa.disciplinaTarefa}</td>
           <td>
@@ -122,8 +123,8 @@ function buscarTarefaPorCategoriaOutros() {
     let descricaoTruncada = truncarDescricao(tarefa.descricaoTarefa, 200);
 
     tarefaTable += `
-      <tr>
-        <td><a href="/mostrar-tarefa/${tarefa.nomeTarefa}">${tarefa.nomeTarefa}</a></td>
+      <tr  onclick="window.location.href='/mostrar-tarefa/${tarefa.nomeTarefa}';">
+        <td>${tarefa.nomeTarefa}</td>
         <td>${descricaoTruncada}</td>
         <td>${tarefa.disciplinaTarefa}</td>
         <td>
